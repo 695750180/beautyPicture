@@ -1,4 +1,4 @@
-# winAPPCli
+# beautyPicture
 VUE+ElementUI+electron 开发windows应用程序
 
 该脚手架集成了vue、typescript、elementUI、electron。可用来开发web应用，也可以开发windows的exe应用。
