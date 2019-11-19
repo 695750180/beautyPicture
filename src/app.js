@@ -1,9 +1,13 @@
-const { app, BrowserWindow } = require('electron');
+//import Message from './event/Message.js'
+const message = require("./event/Message.js");
+const electron = require("electron");
+const { app, BrowserWindow, ipcMain, Menu} = electron;
 
 // 保持对window对象的全局引用，如果不这么做的话，当JavaScript对象被
 // 垃圾回收的时候，window对象将会自动的关闭
 let win = null;
 function createWindow () {
+  Menu.setApplicationMenu(null);
   // 创建浏览器窗口。
   win = new BrowserWindow({
     width: 800,
@@ -12,12 +16,15 @@ function createWindow () {
       nodeIntegration: true
     }
   });
+  //let message = new MessageChannel({app, win, ipcMain, electron});
+  //message.listening(app, win, ipcMain, electron);
+  message.listening(app, win, ipcMain, electron);
 
   // 加载index.html文件
   win.loadFile('dist/index.html')
 
   // 打开开发者工具
-  //win.webContents.openDevTools()
+  win.webContents.openDevTools()
 
   // 当 window 被关闭，这个事件会被触发。
   win.on('closed', () => {
@@ -50,3 +57,12 @@ app.on('activate', () => {
     createWindow()
   }
 })
+
+
+function listening(){
+  ipcMain.on('asynchronous-message', function(event, arg) {
+      console.log("getmessage:"+arg); // prints "ping"
+      win.webContents.send('asynchronous-message', '信息返回哈哈哈哈');
+  });
+}
+

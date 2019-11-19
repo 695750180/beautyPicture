@@ -43,6 +43,7 @@
 <script>
 
 export default {
+  
   data() {
     return {
       fileReader: new FileReader(),//文件读取对象
@@ -59,7 +60,8 @@ export default {
   },
 
   mounted() {
-
+    console.log("开始");
+    this.sendMessage();
   },
 
   methods: {
@@ -114,6 +116,18 @@ export default {
             reject("未选择文件");
           }
         }
+      });
+    },
+
+    sendMessage(){
+      const { ipcRenderer } = require('electron');
+      console.log(ipcRenderer);
+      //使用ipcRenderer与主进程通信，并获取返回值
+      ipcRenderer.send("asynchronous-message","同步线程通信");
+      //监听主线程获取到打印机列表后的回调
+      ipcRenderer.on("asynchronous-message", (event, data) => {
+        //data就是打印机列表
+        console.log("收到消息:"+data);
       });
     }
   },

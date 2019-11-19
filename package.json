@@ -5,10 +5,12 @@
   "main": "./src/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"electron .",
     "build": "webpack --config build/webpack.config.js",
     "dev": "webpack-dev-server --config build/webpackDev.config.js",
     "exe": "babel-node --inspect build/packge.js",
-    "packge" : "electron-builder --win --x64"
+    "app": "webpack --config build/webpack.exe.config.js",
+    "packge": "electron-builder --win --x64"
   },
   "author": "houjianhong",
   "license": "ISC",
@@ -23,6 +25,7 @@
     "@babel/core": "^7.5.0",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-stage-2": "^7.0.0",
+    "babel-cli": "^6.26.0",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
     "babel-loader": "^8.0.6",
     "babel-plugin-component": "^1.1.1",
@@ -62,14 +65,12 @@
     "webpack-dev-server": "^3.7.2"
   },
   "build": {
-    "productName":"beautyPicture",
+    "productName": "beautyPicture",
     "appId": "com.hou.beautyPicture",
-    "copyright":"houjianhong",
-    "directories": { 
+    "copyright": "houjianhong",
+    "directories": {
       "output": "target"
-    }, 
-    "win": {
-      
-    }
+    },
+    "win": {}
   }
 }
